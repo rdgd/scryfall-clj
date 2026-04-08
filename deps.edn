@@ -1,5 +1,20 @@
-{:deps  {clj-http  {:mvn/version "3.10.0"}
-         cheshire {:mvn/version "5.9.0"}}
+{:deps  {clj-http/clj-http  {:mvn/version "3.10.0"}
+         cheshire/cheshire {:mvn/version "5.9.0"}}
  :paths ["src" "classes"]
- :aliases {:nrepl  {:extra-deps  {nrepl  {:mvn/version  "RELEASE"}}
-                    :main-opts  ["-m"  "nrepl.cmdline"]}}}
+ :aliases
+ {:jar     {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+            :main-opts  ["-m"  "hf.depstar.jar"]}
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "RELEASE"}}
+            :main-opts  ["-m"  "deps-deploy.deps-deploy"  "install"]}
+  :deploy  {:extra-deps {slipset/deps-deploy {:mvn/version "RELEASE"}}
+            :exec-fn    deps-deploy.deps-deploy/deploy
+            :exec-args  {:installer      :remote
+                         :sign-releases? false
+                         :artifact       "scryfall-clj.jar"}}
+  :test    {:extra-paths ["test"]
+            :extra-deps  {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1"
+                                                                :git/sha "dfb30dd"}}
+            :main-opts   ["-m" "cognitect.test-runner"]
+            :exec-fn     cognitect.test-runner.api/test}
+  :nrepl   {:extra-deps {nrepl/nrepl {:mvn/version "RELEASE"}}
+            :main-opts  ["-m"  "nrepl.cmdline"]}}}
