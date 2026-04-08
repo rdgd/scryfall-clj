@@ -6,6 +6,12 @@
   <artifactId>scryfall-clj</artifactId>
   <version>0.1.0</version>
   <name>scryfall-clj</name>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
