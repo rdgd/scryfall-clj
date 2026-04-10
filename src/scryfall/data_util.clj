@@ -9,7 +9,9 @@
   [card-data]
   (try (-> card-data
            (get-in [:rulings_uri])
-           (http/get {:as :json})
+           (http/get {:as :json
+                      :headers {"User-Agent" "scryfall-clj"
+                                "Accept" "application/json"}})
            :body
            :data)
        (catch Exception e (println "Error searching for rulings for " card-data " :" (ex-data e)))))
